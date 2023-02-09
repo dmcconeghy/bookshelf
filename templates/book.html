@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{book.title | truncate(20)}}
+{% endblock %}
+
+{% block content %}
+
+    {{book.title}}
+
+    {{book.author}}
+
+    {{book.description}}
+
+    {{book.price}}
+
+    {{book.isbn}}
+
+    {{book.image}}
+
+    {{book.url}}
+
+{% endblock %}

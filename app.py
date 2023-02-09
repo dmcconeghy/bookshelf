@@ -26,9 +26,12 @@ db.create_all()
 
 @app.route('/')
 def home_page():
-
     return render_template('home.html')
 
 @app.route('/catalog')
 def catalog_page():
-    return render_template('catalog.html')
+    return render_template('catalog.html', books=Book.query.all())
+
+@app.route('/catalog/<int:book_id>', methods=['GET', 'POST'])
+def book_details_page(book_id):
+    return render_template('book.html', book=Book.query.get(book_id))

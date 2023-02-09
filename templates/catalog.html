@@ -2,10 +2,9 @@
 {% block title %}Catalog{% endblock %}
 {% block content %}
     <h1>Catalog</h1>
-    <ul>
-        <li>List of my books</li>
-        <!-- {% for book in books %}
-            <li><a href="{{ url_for('book', book_id=book.id) }}">{{ book.title }}</a></li>
-        {% endfor %} -->
+    <ul>   
+        {% for book in books %}
+            <li><a href="/catalog/{{book.id}}">{{ book.title }}</a></li>
+        {% endfor %}
     </ul>
 {% endblock %}
