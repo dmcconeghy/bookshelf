@@ -2,7 +2,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, FloatField
 from wtforms import validators
 
-
 class AddBookByInputForm(FlaskForm):
     """Form for manually inputting books details."""
 

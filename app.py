@@ -1,13 +1,25 @@
 import os
-from flask import Flask, render_template, redirect
-from flask_debugtoolbar import DebugToolbarExtension
+from flask import Flask, render_template, redirect, url_for
+from flask_bootstrap import Bootstrap
+
 from models import db, connect_db, Book
 from forms import AddBookByInputForm, AddBookByISBNForm
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
 app.app_context().push()
+toolbar = DebugToolbarExtension(app)
+Bootstrap(app)
+
+#Flask-WTF requires an encryption key - the string can be anything
+app.config['Secret_Key'] = os.environ.get('SECRET_KEY', 'J[.XQ&*i_D$!$%Nn#D&vHInTdDn@nv')
+# Necessary for local testing
+app.config['WTF_CSRF_ENABLED'] = False
+
 
 uri = os.environ.get('DATABASE_URL', 'postgresql:///bookshelf')
+
+#PSQL naming conventions changed from postgres to postgresql
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
@@ -15,9 +27,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-app.config['WTF_CSRF_ENABLED'] = False
-app.config['Secret_Key'] = os.environ.get('SECRET_KEY', 'J[.XQ&*i_D$!$%Nn#D&vHInTdDn@nv')
-toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
 # db.drop_all()
@@ -31,7 +40,7 @@ def home_page():
 def catalog_page():
     return render_template('catalog.j2', books=Book.query.all())
 
-@app.route('/catalog/<int:book_id>', methods=['GET', 'POST'])
+@app.route('/catalog/<int:book_id>', methods=['GET'])
 def book_details_page(book_id):
     return render_template('book.j2', book=Book.query.get(book_id))
 
