@@ -16,26 +16,46 @@
 
 {% block main %}
 
-    {{book.title}}
+    <h1>   
+        {% if book.title is none %}
+            {{ "Untitled Book" }}
+        {% else %}
+            {{book.title}}
+        {% endif %} 
+    </h1>
 
-    {{book.author}}
+    <h2>
+        {% if book.author is none %}
+            {{ "Unknown Author" }}
+        {% else %}
+            {{book.author}}
+        {% endif %}
+    </h2>
 
-    {{book.description}}
+    <p>{{book.description or "No description available."}}</p>
+    <br>
 
-    {{book.price}}
-
-    {{book.isbn}}
-
-    {{book.image}}
-
-    {{book.url}}
+    {{book.image or "No image found"}}
+    <br>
+    {{book.url or "No URL found"}}
+    <br>
 
     {% if book.isbn is not none %}
-        <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
-        <script type="text/javascript">
-            GBS_insertEmbeddedViewer('ISBN:{{ book.isbn }}', 850, 1100);
-        </script>
+
+       ISBN:{{book.isbn}}
+      
+    {% else %}
+        <p> No preview available </p>
+
     {% endif %}
     
-
 {% endblock %}
+
+{#
+  # This embeds a Google Books preview of the book *if* the book has a preview. Otherwise nothing appears.
+  # This makes the embed script inappropriate for MVP, but is useful for testing with valid ISBNs.
+  # <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
+        # <script type="text/javascript">
+        #     GBS_insertEmbeddedViewer('ISBN:{{ book.isbn }}', 850, 1100);
+        # </script>
+#}

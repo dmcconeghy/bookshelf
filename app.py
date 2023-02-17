@@ -47,7 +47,7 @@ def book_details_page(book_id):
 @app.route('/catalog/add', methods=['GET', 'POST'])
 def add_book_page():
     details_form = AddBookByInputForm()
-    isbn_form = AddBookByISBNForm()
+    # isbn_form = AddBookByISBNForm()
 
     if details_form.validate_on_submit():
         title = details_form.title.data
@@ -61,11 +61,12 @@ def add_book_page():
         db.session.commit()
         return redirect(f'/catalog/{book.id}')
 
-    if isbn_form.validate_on_submit():
-        isbn = isbn_form.isbn.data
-        book = Book(isbn=isbn)
-        db.session.add(book)
-        db.session.commit()
-        return redirect(f'/catalog/{book.id}')
+    # if isbn_form.validate_on_submit():
+    #     isbn = isbn_form.isbn.data
+    #     book = Book(isbn=isbn)
+    #     db.session.add(book)
+    #     db.session.commit()
+    #     return redirect(f'/catalog/{book.id}')
+    # return render_template('add_book.j2', details_form=details_form, isbn_form=isbn_form)
 
-    return render_template('add_book.j2', details_form=details_form, isbn_form=isbn_form)
+    return render_template('add_book.j2', details_form=details_form)

@@ -8,7 +8,8 @@ class AddBookByInputForm(FlaskForm):
     title = StringField("Book Title", [validators.InputRequired()])
     author = StringField("Book Author")
     description = StringField("Book Description")
-    image_url = StringField("Book Image URL", [validators.URL()])
+    image_url = StringField("Book Image URL")
+    # image_url = StringField("Book Image URL", [validators.URL()])
     isbn = StringField("Book ISBN")
     year = FloatField("Book Year")
 
@@ -16,3 +17,5 @@ class AddBookByISBNForm(FlaskForm):
     """Form for adding books by ISBN."""
 
     isbn = StringField("Book ISBN")
+
+# TODO: Add a Patch form.

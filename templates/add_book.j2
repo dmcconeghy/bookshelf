@@ -1,10 +1,10 @@
 
 {% extends 'base.html' %}
 
-{% import 'bootstrap/wtf.html' as wtf %}
+{# import 'bootstrap/wtf.html' as wtf #}
 {% block main %}
 
-{#{ <form id="book-add-details-form" method="POST">
+<form id="book-add-details-form" method="POST">
     {{ details_form.hidden_tag() }} <!--add type=hidden form fields  -->
     {% for field in details_form 
            if field.widget.input_type != 'hidden' %}
@@ -23,6 +23,7 @@
     <button type="submit">Submit</button>
 </form>
 
+{# This is an isbn only form}
 <form id="book-add-isbn-form" method="POST">
   {{ isbn_form.hidden_tag() }} <!--add type=hidden form fields  -->
   {% for field in isbn_form 
@@ -41,15 +42,14 @@
 
   <button type="submit">Submit</button>
 </form>
+#}
 
-<hr>
-}#}
-
-{# wtf.quick_form handles form generation and uses bootstrap styling#}
-{{ wtf.quick_form(details_form)}}
-<hr>
-<hr>
-<hr>
-{{ wtf.quick_form(isbn_form)}}
+{# wtf.quick_form handles form generation and uses bootstrap styling
+  {{ wtf.quick_form(details_form)}}
+  <hr>
+  <hr>
+  <hr>
+  {{ wtf.quick_form(isbn_form)}}
+#}
 
 {% endblock %}
