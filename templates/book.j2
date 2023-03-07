@@ -50,8 +50,21 @@
 
     {% endif %}
 
-    <a href="{{ url_for('index') }}">Back to search</a>
+    <a href="">Back to search</a>
     </div>
+
+    <div id="content"></div>
+    <script>
+      function handleResponse(response) {
+      for (var i = 0; i < response.items.length; i++) {
+        var item = response.items[i];
+        
+        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;
+      }
+    }
+    </script>
+    <script src="https://www.googleapis.com/books/v1/volumes?q=harry+potter&callback=handleResponse&key=yourAPIKey"></script>
+
     
 {% endblock %}
 
