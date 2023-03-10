@@ -16,6 +16,6 @@ class AddBookByInputForm(FlaskForm):
 class AddBookByISBNForm(FlaskForm):
     """Form for adding books by ISBN."""
 
-    isbn = StringField("Book ISBN")
+    isbn = StringField("Enter an ISBN")
 
 # TODO: Add a Patch form.

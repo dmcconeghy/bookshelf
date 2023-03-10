@@ -3,8 +3,7 @@
     <h1>Catalog</h1>
     <ul>   
         {% for book in books %}
-            <li><a href="/catalog/{{book.id}}">{{ book.title }}</a></li>
+            <a href="/catalog/{{book.id}}"><img src={{book.image_url}}></a>
         {% endfor %}
     </ul>
-    
 {% endblock %}

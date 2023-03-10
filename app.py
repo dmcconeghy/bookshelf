@@ -1,12 +1,13 @@
 import os
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
-
 from models import db, connect_db, Book
 from forms import AddBookByInputForm, AddBookByISBNForm
 from flask_debugtoolbar import DebugToolbarExtension
+from ISBN_search import get_book_details
 
 app = Flask(__name__)
+app.run(debug=True)
 app.app_context().push()
 toolbar = DebugToolbarExtension(app)
 Bootstrap(app)
@@ -47,26 +48,26 @@ def book_details_page(book_id):
 @app.route('/catalog/add', methods=['GET', 'POST'])
 def add_book_page():
     details_form = AddBookByInputForm()
-    # isbn_form = AddBookByISBNForm()
+    isbn_form = AddBookByISBNForm()
 
-    if details_form.validate_on_submit():
-        title = details_form.title.data
-        author = details_form.author.data
-        description = details_form.description.data
-        image_url = details_form.image_url.data
-        isbn = details_form.isbn.data
-        year = details_form.year.data
-        book = Book(title=title, author=author, description=description, image_url=image_url, isbn=isbn, year=year)
-        db.session.add(book)
-        db.session.commit()
-        return redirect(f'/catalog/{book.id}')
-
-    # if isbn_form.validate_on_submit():
-    #     isbn = isbn_form.isbn.data
-    #     book = Book(isbn=isbn)
+    # if details_form.validate_on_submit():
+    #     title = details_form.title.data
+    #     author = details_form.author.data
+    #     description = details_form.description.data
+    #     image_url = details_form.image_url.data
+    #     isbn = details_form.isbn.data
+    #     year = details_form.year.data
+    #     book = Book(title=title, author=author, description=description, image_url=image_url, isbn=isbn, year=year)
     #     db.session.add(book)
     #     db.session.commit()
     #     return redirect(f'/catalog/{book.id}')
-    # return render_template('add_book.j2', details_form=details_form, isbn_form=isbn_form)
 
-    return render_template('add_book.j2', details_form=details_form)
+    if isbn_form.validate_on_submit():
+        isbn = isbn_form.isbn.data
+        json_data = get_book_details(isbn)
+        print(f'json_data for {isbn}:\n {json_data}')
+        book = Book(isbn=isbn, title=json_data['book_title'], author=json_data['book_first_author'], description=json_data['book_description'], image_url=json_data['book_image_url'], year=json_data['book_published_date'])
+        db.session.add(book)
+        db.session.commit()
+        return redirect(f'/catalog/add')
+    return render_template('add_book.j2', details_form=details_form, isbn_form=isbn_form)

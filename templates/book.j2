@@ -36,9 +36,15 @@
     <p>{{book.description or "No description available."}}</p>
     <br>
 
-    {{book.image or "No image found"}}
-    <br>
-    {{book.url or "No URL found"}}
+    {% if book.image_url is not none %}
+
+        <img src="{{book.image_url}}" alt="Book Cover">
+
+    {% else %}
+        <p> No cover preview available </p>
+
+    {% endif %}
+    
     <br>
 
     {% if book.isbn is not none %}
@@ -49,22 +55,6 @@
         <p> No preview available </p>
 
     {% endif %}
-
-    <a href="">Back to search</a>
-    </div>
-
-    <div id="content"></div>
-    <script>
-      function handleResponse(response) {
-      for (var i = 0; i < response.items.length; i++) {
-        var item = response.items[i];
-        
-        document.getElementById("content").innerHTML += "<br>" + item.volumeInfo.title;
-      }
-    }
-    </script>
-    <script src="https://www.googleapis.com/books/v1/volumes?q=harry+potter&callback=handleResponse&key=yourAPIKey"></script>
-
     
 {% endblock %}
 
