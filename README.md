@@ -15,15 +15,17 @@ Core functionality includes:
 - Calling the Google Books API for book details by ISBN
 - Saving limited book details into our database per our model  
 - Templating with Jinja2 for individual book pages
-- Displaying a book's saved Google Books data 
+- Displaying a book's saved Google Books data
+ 
 
 This project has a lengthy todo list:
 
+- Writing PATCH routing for editing book details
+- Create an admin login for add/update privileges
 - Expand book model to include multiple authors, publishers, edition...
 - Search functions for internal and external book searches*
 - Dockerize the installation and automate deployment 
 - Select a component design and integrate tailwind 
-- Writing PATCH routing for editing book details
 - Select a citation generation package for creating book citations*
 - Allow for custom book lists*
 
