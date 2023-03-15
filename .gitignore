@@ -3,3 +3,4 @@
 /.vscode
 get-pip.py
 farmer-flynn.py
+/node_modules

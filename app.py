@@ -35,15 +35,19 @@ db.create_all()
 
 @app.route('/')
 def home_page():
-    return render_template('home.j2')
+    return render_template('home.html')
+
+@app.route('/test')
+def test_page():
+    return render_template('test.html')
 
 @app.route('/catalog')
 def catalog_page():
-    return render_template('catalog.j2', books=Book.query.all())
+    return render_template('catalog.html', books=Book.query.all())
 
 @app.route('/catalog/<int:book_id>', methods=['GET'])
 def book_details_page(book_id):
-    return render_template('book.j2', book=Book.query.get(book_id))
+    return render_template('book.html', book=Book.query.get(book_id))
 
 @app.route('/catalog/add', methods=['GET', 'POST'])
 def add_book_page():
@@ -70,4 +74,4 @@ def add_book_page():
         db.session.add(book)
         db.session.commit()
         return redirect(f'/catalog/add')
-    return render_template('add_book.j2', details_form=details_form, isbn_form=isbn_form)
+    return render_template('add_book.html', details_form=details_form, isbn_form=isbn_form)
