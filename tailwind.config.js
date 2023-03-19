@@ -4,10 +4,11 @@ module.exports = {
   content: [
     "./**/*.{html,js,j2}",
   ],
-  theme: {
-    extend: {},
-  },
+  darkMode: 'class',
   plugins: [
     require("flowbite/plugin")
   ],
+  theme: {
+    extend: {},
+  },
 }
