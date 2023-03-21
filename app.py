@@ -1,4 +1,4 @@
-import os
+import os, json
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 from models import db, connect_db, Book
@@ -16,7 +16,6 @@ Bootstrap(app)
 app.config['Secret_Key'] = os.environ.get('SECRET_KEY', 'J[.XQ&*i_D$!$%Nn#D&vHInTdDn@nv')
 # Necessary for local testing
 app.config['WTF_CSRF_ENABLED'] = False
-
 
 uri = os.environ.get('DATABASE_URL', 'postgresql:///bookshelf')
 
@@ -36,6 +35,16 @@ db.create_all()
 @app.route('/')
 def home_page():
     return render_template('home.html')
+
+@app.route('/admin')
+def admin_page():
+    isbns = []
+    with open('./static/isbns.json', 'r') as f:
+        data = json.load(f)
+        isbn_list = data['ISBNS']
+        isbns = [isbn for isbn in isbn_list]
+        f.close()
+    return render_template('admin_panel.html', isbns=isbns)
 
 @app.route('/test')
 def test_page():
