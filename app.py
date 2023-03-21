@@ -3,14 +3,12 @@ from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 from models import db, connect_db, Book
 from forms import AddBookByInputForm, AddBookByISBNForm
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 from ISBN_search import get_book_details
 
 app = Flask(__name__)
 app.run(debug=True)
 app.app_context().push()
-toolbar = DebugToolbarExtension(app)
-Bootstrap(app)
 
 #Flask-WTF requires an encryption key - the string can be anything
 app.config['Secret_Key'] = os.environ.get('SECRET_KEY', 'J[.XQ&*i_D$!$%Nn#D&vHInTdDn@nv')
@@ -18,7 +16,6 @@ app.config['Secret_Key'] = os.environ.get('SECRET_KEY', 'J[.XQ&*i_D$!$%Nn#D&vHIn
 app.config['WTF_CSRF_ENABLED'] = False
 
 uri = os.environ.get('DATABASE_URL', 'postgresql:///bookshelf')
-
 #PSQL naming conventions changed from postgres to postgresql
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
@@ -26,7 +23,10 @@ if uri.startswith("postgres://"):
 app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+
+# toolbar = DebugToolbarExtension(app)
+Bootstrap(app)
 
 connect_db(app)
 # db.drop_all()

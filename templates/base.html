@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
       <link href="{{url_for('static',filename='dist/output.css')}}" rel="stylesheet">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
+
     {% block head %}
       <title>My Bookshelf - {% block title %}{% endblock %}</title>
     {% endblock %}
   </head>
-  <body>
-    <header>
-      {% block header %}
-      {% include 'header.html' %}
-      {% endblock %}
-    </header>
+  <body class="bg-white dark:bg-gray-900 px-2">
     <nav>
       {% block nav %}
       {% include 'nav.html' %}
