@@ -36,4 +36,4 @@ This project has a lengthy todo list:
 3. Load a VENV and pip install the requirements. 
 4. Flask run the install. 
 
-
+Now that the scanning is done. Does anyone need a scanner? 
